@@ -1,7 +1,8 @@
 from random import shuffle
+from Card import Card, Ascii_card
 
 suits = ['Spade', 'Heart ', 'Diamond', 'Club']
-ranks = [x for x in range(2, 11)] + ['Jack', 'Queen', 'King', 'Ace']
+ranks = [rank for rank in range(2, 11)] + ['Jack', 'Queen', 'King', 'Ace']
 
 def new_deck():
     """Return a new deck of cards."""
