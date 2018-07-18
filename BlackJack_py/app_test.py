@@ -1,10 +1,11 @@
 import unittest
+from Card import Card
+from app import hand_value
 
-from app import foo
+class TestScoring(unittest.TestCase):
 
-class TestMyApp(unittest.TestCase):
-    def mean_test_name(self):
-        self.assertEqual(foo("Argument"), "Expected")
+    def test_scoring(self):
+        self.assertEqual(hand_value([Card('Queen', 'Club'), Card('3', 'Diamond')]), ['13', 13])
 
 if __name__ == '__main__':
     unittest.main()
