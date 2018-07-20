@@ -13,10 +13,12 @@ def new_deck():
 deck = new_deck()
 shuffle(deck)
 
-player_flag = True
+is_playing = True
 
-player_hand = [deck.pop(), deck.pop()]
-dealer_hand = [deck.pop(), deck.pop()]
+p_hand = [deck.pop(), deck.pop()]
+# let's shuffle again to achieve
+shuffle(deck)
+d_hand = [deck.pop(), deck.pop()]
 
 def hand_value(hand):
     """Returns the integer value of a set of cards."""
@@ -39,3 +41,49 @@ def hand_value(hand):
         return ['Blackjack!', 21]
     else:
         return ['Bust!', 100]
+
+while is_playing:
+    hand_str = '''\nYou are currently at %s\nwith the hand %s\n'''
+    current_score = hand_str\
+        % (hand_value(p_hand)[0], [_.get_name() for _ in p_hand])
+
+    print(current_score)
+    if hand_value(p_hand)[1] == 100:
+        break
+
+    if is_playing:
+        response = int(input('You gonna hit (=> 1) or stay (=> 0) ?'))
+        if response:
+            is_playing = True
+            new_player_card = deck.pop()
+            p_hand.append(new_player_card)
+            print('You draw %s' % new_player_card.get_name())
+        else:
+            is_playing = False
+
+p_score_str, p_score = hand_value(p_hand)
+d_score_str, d_score = hand_value(d_hand)
+
+if p_score <= 21:
+    print('''\nDealer is at %s\nwith the hand %s\n'''\
+        % (d_score_str, [_.get_name() for _ in d_hand]))
+else:
+    print("Dealer wins.")
+
+while hand_value(d_hand)[1] < 17:
+    # let's shuffle the deck one more time!
+    shuffle(deck)
+    new_dealer_card = deck.pop()
+    d_hand.append(new_dealer_card)
+    print('Dealer draws %s' % new_dealer_card.get_name())
+
+d_score_str, d_score = hand_value(d_hand)
+
+if p_score < 100 and d_score == 100:
+    print('You beat the dealer!')
+elif p_score > d_score:
+    print('You beat the dealer!')
+elif p_score == d_score:
+    print('You tied the dealer, nobody wins.')
+elif p_score < d_score:
+    print('Dealer wins!')

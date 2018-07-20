@@ -47,8 +47,6 @@ class Card:
     def get_name(self):
         return ' '.join([self.rank, 'of', self.suit])
 
-    # def __del__(self):
-    #     print(' '.join([self.rank, 'of', self.suit]), ' was removed.')
 
 class Ascii_card(Card):
     def __gen_card_front(self):
